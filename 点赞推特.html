@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>自动打开链接</title>
+    <style>
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>点击按钮一键打开所有推文</h2>
+    <button id="openAllBtn" onclick="openAll()">一键打开所有链接</button>
+    <p>如果浏览器拦截弹窗，请手动点击以下链接：</p>
+    <ul id="linkList"></ul>
+
+    <script>
+      const urls = [
+        "https://x.com/orionlubis/status/1950216071752949988",
+        "https://x.com/carymaryposa/status/1950218548531319226",
+        "https://x.com/nazry_aji21/status/1950220037807112329",
+        "https://x.com/dsea95417/status/1950221762257633630",
+        "https://x.com/dfvsdvf173616/status/1950383893149819197",
+        "https://x.com/bfvgdsb74380/status/1950384760012099935",
+        "https://x.com/fecdws88631/status/1950385264473624942",
+        "https://x.com/bdfbbcv4130/status/1950386391843532806",
+        "https://x.com/cdvdwfvcs75586/status/1950385860228034754"
+      ];
+
+      function openAll() {
+        let opened = 0;
+        urls.forEach(url => {
+          const win = window.open(url, "_blank");
+          if (win) opened++;
+        });
+        if (opened < urls.length) {
+          alert(`有 ${urls.length - opened} 个链接可能被浏览器拦截弹窗，请手动点击下方链接`);
+        }
+      }
+
+      // Generate the link list
+      const list = document.getElementById("linkList");
+      urls.forEach((url, index) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = url;
+        a.textContent = `链接${index + 1}`;
+        a.target = "_blank";
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    </script>
+  </body>
+</html>
